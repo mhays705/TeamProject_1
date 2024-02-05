@@ -107,7 +107,7 @@ public class Polynomial {
 		while (it.hasNext()) {
 			builder.append("(" + it.next().toString() + ")" + " ");     // Remove additional space before submitting just used to show the separate between terms 
 		}
-		if (builder.charAt(0) == '+') { // Removes
+		if (builder.charAt(0) == '+') { // Removes leading '+' sign if first term is positive
 			builder.deleteCharAt(0);
 		}
 
