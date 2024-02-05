@@ -105,7 +105,7 @@ public class Polynomial {
 		Iterator<Term> it = poly.iterator();
 		StringBuilder builder = new StringBuilder();
 		while (it.hasNext()) {
-			builder.append(it.next().toString() + " ");     // Remove additional space before submitting just used to show the separate between terms 
+			builder.append("(" + it.next().toString() + ")" + " ");     // Remove additional space before submitting just used to show the separate between terms 
 		}
 		if (builder.charAt(0) == '+') { // Removes
 			builder.deleteCharAt(0);
