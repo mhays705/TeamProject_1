@@ -8,6 +8,10 @@ public class Polynomial {
 	public Polynomial() {
 		poly = null;
 	}
+	
+	public Polynomial(Linked_List<Term> other) {
+		this.poly = other;
+	}
 
 	// Constructor that parses input into terms and creates linked list of terms
 	// from inputed polynomial
@@ -91,9 +95,38 @@ public class Polynomial {
 	 *          }
 	 */
 
+	/**
+	 * Sorts polynomial in descending order and combines terms based on exponent
+	 */
+
+	public void sort() {
+	    Linked_List<Term> sortedPoly = new Linked_List<>();
+
+	    while (!poly.isEmpty()) {
+	        int coefficient = 0;
+	        String var = "";
+
+	        List_Iterator<Term> it = this.poly.iterator();
+	        Term current = it.next();
+	        int exponent = current.getExponent();
+
+	        while (it.hasNext() && current.getExponent() == it.peek().getExponent()) {
+	            coefficient += it.peek().getCoefficient();
+	            it.next();
+	        }
+
+	        // Add the combined term to the sorted list
+	        sortedPoly.addLast(new Term(coefficient, exponent, var));
+	        
+	        // Remove the processed terms from the original list
+	        it.removePrevious();
+	    }
+
+	    this.poly = sortedPoly;
+	}
 	
 	
-	
+
 	/**
 	 * Converts polynomial stored in linked list into a String for output
 	 * 
@@ -105,7 +138,8 @@ public class Polynomial {
 		Iterator<Term> it = poly.iterator();
 		StringBuilder builder = new StringBuilder();
 		while (it.hasNext()) {
-			builder.append("(" + it.next().toString() + ")" + " ");     // Remove additional space before submitting just used to show the separate between terms 
+			builder.append("(" + it.next().toString() + ")" + " "); // Remove additional space before submitting just
+																	// used to show the separate between terms
 		}
 		if (builder.charAt(0) == '+') { // Removes leading '+' sign if first term is positive
 			builder.deleteCharAt(0);

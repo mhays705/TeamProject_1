@@ -5,9 +5,13 @@ public class Main {
       
 
 		Polynomial polynomial = new Polynomial("33x+5^4+x^2-10");
+		
         System.out.println(polynomial.toString());
         
-		
+        
+        polynomial.sort();
+        
+        System.out.println(polynomial.toString());
 
 	}
 

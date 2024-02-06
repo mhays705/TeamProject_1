@@ -40,4 +40,12 @@ public interface List_Iterator<T> extends Iterator<T> {
 	
 	T peek(); 
 	
+	
+	
+	/** 
+	 * Moves iterator to beginning of list
+	 */
+	
+	void reset();
+	
 }

@@ -15,6 +15,17 @@ public class Term implements Comparable<Term> {
 		this.var = var;
 
 	}
+	
+	// Getters
+	
+	public int getCoefficient() { return coefficient; }
+	
+	public int getExponent() { return exponent; }
+	
+	public String getVar() { return var; }
+	
+	
+	
 
 	@Override
 	public String toString() {
@@ -47,8 +58,19 @@ public class Term implements Comparable<Term> {
 
 	@Override
 	public int compareTo(Term other) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		if (this.exponent > other.exponent) {
+			return 1;
+		}
+		else if (this.exponent < other.exponent) {
+			return -1;
+					
+		}
+		
+		return 0;   // If exponents are the same
+		
+		
+		
 	}
 
 }
