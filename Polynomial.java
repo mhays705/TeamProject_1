@@ -10,8 +10,11 @@ public class Polynomial {
 	}
 	
 
-	// Constructor that parses input into terms and creates linked list of terms
-	// from inputed polynomial
+	/** Constructor that parses input into terms and creates linked list of terms
+	 * from input polynomial and sorts and combines terms of new polynomial
+	 * @param input: polynomial inputed as string
+	 */
+	
 	public Polynomial(String input) {
 		poly = new Linked_List<Term>();
 		Linked_List<Character> data = new Linked_List<>();
