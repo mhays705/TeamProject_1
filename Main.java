@@ -9,10 +9,6 @@ public class Main {
         System.out.println(polynomial.toString());
         
         
-        polynomial.sort();
-        
-        System.out.println(polynomial.toString());
-
 	}
 
 }

@@ -15,62 +15,51 @@ public class Term implements Comparable<Term> {
 		this.var = var;
 
 	}
-	
+
 	// Getters
-	
-	public int getCoefficient() { return coefficient; }
-	
-	public int getExponent() { return exponent; }
-	
-	public String getVar() { return var; }
-	
-	
-	
+
+	public int getCoefficient() {
+		return coefficient;
+	}
+
+	public int getExponent() {
+		return exponent;
+	}
+
+	public String getVar() {
+		return var;
+	}
 
 	@Override
 	public String toString() {
-	    StringBuilder builder = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
 
-	    if (coefficient > 0) {
-	        builder.append("+");      // Always add a leading '+' for positive coefficients
-	    } else if (coefficient < 0) {
-	        builder.append("-");       // Handle negative coefficient
-	    }
+		if (coefficient > 0) {
+			builder.append("+"); // Always add a leading '+' for positive coefficients
+		} else if (coefficient < 0) {
+			builder.append("-"); // Handle negative coefficient
+		}
 
-	    if (coefficient != 0) {
-	        builder.append(Math.abs(coefficient));
-	    }
-	    
-	    
-	    if (!var.isEmpty() && coefficient != 0) {    // Removes sign from variable with coefficient
-	    	builder.append(var.substring(1));
-	    }
-	    else if (!var.isEmpty() && coefficient == 0) {
-	        builder.append(var);
-	    }
+		if (coefficient != 0) {
+			builder.append(Math.abs(coefficient));
+		}
 
-	    if (exponent != 0) {
-	        builder.append("^" + exponent);
-	    }
+		if (!var.isEmpty() && coefficient != 0) { // Removes sign from variable with coefficient
+			builder.append(var.substring(1));
+		} else if (!var.isEmpty() && coefficient == 0) {
+			builder.append(var);
+		}
 
-	    return builder.toString();
+		if (exponent != 0) {
+			builder.append("^" + exponent);
+		}
+
+		return builder.toString();
 	}
 
 	@Override
 	public int compareTo(Term other) {
-		
-		if (this.exponent > other.exponent) {
-			return 1;
-		}
-		else if (this.exponent < other.exponent) {
-			return -1;
-					
-		}
-		
-		return 0;   // If exponents are the same
-		
-		
-		
-	}
 
+		return 0;
+	}
 }
