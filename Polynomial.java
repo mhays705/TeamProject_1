@@ -9,12 +9,17 @@ public class Polynomial {
 		poly = new Linked_List<>();
 	}
 	
+	public Polynomial(Linked_List<Term> other) {
+		this.poly = other;
+	}
 
-	/** Constructor that parses input into terms and creates linked list of terms
+	/**
+	 * Constructor that parses input into terms and creates linked list of terms
 	 * from input polynomial and sorts and combines terms of new polynomial
+	 * 
 	 * @param input: polynomial inputed as string
 	 */
-	
+
 	public Polynomial(String input) {
 		poly = new Linked_List<Term>();
 		Linked_List<Character> data = new Linked_List<>();
@@ -76,7 +81,7 @@ public class Polynomial {
 			}
 			poly.addLast(new Term(coefficient, exponent, variable));
 		}
-		this.sort();          // Sort and combine terms of input polynomial
+		this.sort(); // Sort and combine terms of input polynomial
 		this.combineTerms();
 	}
 
@@ -85,82 +90,90 @@ public class Polynomial {
 	 * 
 	 * @param other: Second polynomial to add
 	 * @return: New polynomial from result of the addition
-	 *
-	 *          public Polynomial addPolynomial(Polynomial other) { Iterator<Term>
-	 *          it1 = this.poly.iterator(); Iterator<Term> it2 =
-	 *          other.poly.iterator(); Linked_List<Term> newPoly = new
-	 *          Linked_List<>();
-	 * 
-	 * 
-	 *          return newPoly;
-	 * 
-	 *          }
 	 */
 
-	
-	
+	public Polynomial addPolynomial(Polynomial other) {
+		Linked_List<Term> newPoly = this.poly;
+		List_Iterator<Term> it = other.poly.iterator();
+		
+		
+		while (it.hasNext()) {
+			newPoly.addLast(it.next());
+		}
+		
+		Polynomial poly = new Polynomial(newPoly);
+		
+		poly.sort();
+		poly.combineTerms();
+		
+		
+		return poly;
+	}
+
 	/**
 	 * Sort terms of polynomial in descending order based on exponent
 	 */
-	
-	
+
 	public void sort() {
-	    Linked_List<Term> sortedPoly = new Linked_List<>();
+		Linked_List<Term> sortedPoly = new Linked_List<>();
 
-	    while (!poly.isEmpty()) {
-	        List_Iterator<Term> it = poly.iterator();
-	        Term current = it.next();
-	        Term maxTerm = current; 
+		while (!poly.isEmpty()) {
+			List_Iterator<Term> it = poly.iterator();
+			Term current = it.next();
+			Term maxTerm = current;
 
-	        // Find the maximum term 
-	        while (it.hasNext()) {
-	            Term nextTerm = it.peek();
-	            if (nextTerm.compareTo(maxTerm) > 0) {
-	                maxTerm = nextTerm;
-	            }
-	            it.next();
-	        }
+			// Find the maximum term
+			while (it.hasNext()) {
+				Term nextTerm = it.peek();
+				if (nextTerm.compareTo(maxTerm) > 0) {
+					maxTerm = nextTerm;
+				}
+				it.next();
+			}
 
-	        // Remove the maximum term from the original list and add it to the sorted list
-	        it = poly.iterator();     // Reset the iterator to the beginning of the list
-	        while (it.hasNext()) {
-	            Term nextTerm = it.next();
-	            if (nextTerm.compareTo(maxTerm) == 0) {
-	                it.removePrevious();
-	                sortedPoly.addLast(maxTerm);
-	                break;       
-	            }
-	        }
-	    }
+			// Remove the maximum term from the original list and add it to the sorted list
+			it = poly.iterator(); // Reset the iterator to the beginning of the list
+			while (it.hasNext()) {
+				Term nextTerm = it.next();
+				if (nextTerm.compareTo(maxTerm) == 0) {
+					it.removePrevious();
+					sortedPoly.addLast(maxTerm);
+					break;
+				}
+			}
+		}
 
-	    this.poly = sortedPoly;
+		this.poly = sortedPoly;
 	}
-	
-	
-	
-	/** 
+
+	/**
 	 * Combines terms of polynomial with same exponents
 	 */
-	
+
 	public void combineTerms() {
 	    Linked_List<Term> newPoly = new Linked_List<>();
 	    List_Iterator<Term> it = poly.iterator();
 
 	    while (it.hasNext()) {
 	        Term current = it.next();
-	        String var = current.getVar();
 	        int exponent = current.getExponent();
 	        int coefficient = current.getCoefficient();
+	        String var = "";
+	    
+	        
+	        if (exponent > 0) {
+	        	var = current.getVar();
+	        }
 
-	        // Check for like terms 
+	        
 	        while (it.hasNext()) {
 	            Term nextTerm = it.peek();
 	            if (current.compareTo(nextTerm) == 0) {
 	                coefficient += nextTerm.getCoefficient();
 	                it.next(); 
-	                it.removePrevious();   // Remove term that has been combined
+	                it.removePrevious(); 
 	            } else {
-	                break;
+	                break; 
 	            }
 	        }
 
@@ -170,11 +183,6 @@ public class Polynomial {
 
 	    this.poly = newPoly;
 	}
-	
-	        
-	
-	
-	
 
 	/**
 	 * Converts polynomial stored in linked list into a String for output
@@ -187,10 +195,12 @@ public class Polynomial {
 		Iterator<Term> it = poly.iterator();
 		StringBuilder builder = new StringBuilder();
 		while (it.hasNext()) {
-			builder.append("(" + it.next().toString() + ")" + " "); // Remove additional space and parenthesis before submitting just
+			builder.append("(" + it.next().toString() + ")" + " "); // Remove additional space and parenthesis before
+																	// submitting just
 																	// used to show the separate between terms
-																	// Leading '+' sign will be removed correctly when parenthesis are removed 
-																	
+																	// Leading '+' sign will be removed correctly when
+																	// parenthesis are removed
+
 		}
 		if (builder.charAt(0) == '+') { // Removes leading '+' sign if first term is positive
 			builder.deleteCharAt(0);
