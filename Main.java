@@ -4,11 +4,15 @@ public class Main {
 	public static void main(String[] args) {
       
 
-		Polynomial polynomial = new Polynomial("33x+5^4+x^2-10");
+		Polynomial polynomial = new Polynomial("5x-5x^-2+10-5x+x^2");
 		
         System.out.println(polynomial.toString());
         
         
+        polynomial.sort();
+        polynomial.combineTerms();
+        System.out.println(polynomial.toString());
+
 	}
 
 }

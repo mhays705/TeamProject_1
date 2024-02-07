@@ -59,7 +59,18 @@ public class Term implements Comparable<Term> {
 
 	@Override
 	public int compareTo(Term other) {
-
-		return 0;
+		
+		if (this.exponent > other.exponent) {
+			return 1;
+		}
+		else if (this.exponent < other.exponent) {
+			return -1;
+					
+		}
+		
+		return 0;   // If exponents are the same
+		
+		
+		
 	}
 }

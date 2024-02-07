@@ -95,7 +95,81 @@ public class Polynomial {
 	 *          }
 	 */
 
+	
+	
+	/**
+	 * Sort terms of polynomial in descending order based on exponent
+	 */
+	
+	
+	public void sort() {
+	    Linked_List<Term> sortedPoly = new Linked_List<>();
 
+	    while (!poly.isEmpty()) {
+	        List_Iterator<Term> it = poly.iterator();
+	        Term current = it.next();
+	        Term maxTerm = current; 
+
+	        // Find the maximum term 
+	        while (it.hasNext()) {
+	            Term nextTerm = it.peek();
+	            if (nextTerm.compareTo(maxTerm) > 0) {
+	                maxTerm = nextTerm;
+	            }
+	            it.next();
+	        }
+
+	        // Remove the maximum term from the original list and add it to the sorted list
+	        it = poly.iterator();     // Reset the iterator to the beginning of the list
+	        while (it.hasNext()) {
+	            Term nextTerm = it.next();
+	            if (nextTerm.compareTo(maxTerm) == 0) {
+	                it.removePrevious();
+	                sortedPoly.addLast(maxTerm);
+	                break;       
+	            }
+	        }
+	    }
+
+	    this.poly = sortedPoly;
+	}
+	
+	
+	
+	/** 
+	 * Combines terms of polynomial with same exponents
+	 */
+	
+	public void combineTerms() {
+	    Linked_List<Term> newPoly = new Linked_List<>();
+	    List_Iterator<Term> it = poly.iterator();
+
+	    while (it.hasNext()) {
+	        Term current = it.next();
+	        String var = current.getVar();
+	        int exponent = current.getExponent();
+	        int coefficient = current.getCoefficient();
+
+	        // Check for like terms 
+	        while (it.hasNext()) {
+	            Term nextTerm = it.peek();
+	            if (current.compareTo(nextTerm) == 0) {
+	                coefficient += nextTerm.getCoefficient();
+	                it.next(); 
+	                it.removePrevious();   // Remove term that has been combined
+	            } else {
+	                break;
+	            }
+	        }
+
+	        
+	        newPoly.addLast(new Term(coefficient, exponent, var));
+	    }
+
+	    this.poly = newPoly;
+	}
+	
+	        
 	
 	
 	
@@ -111,9 +185,10 @@ public class Polynomial {
 		Iterator<Term> it = poly.iterator();
 		StringBuilder builder = new StringBuilder();
 		while (it.hasNext()) {
-			builder.append("(" + it.next().toString() + ")" + " "); // Remove additional space before submitting just
+			builder.append("(" + it.next().toString() + ")" + " "); // Remove additional space and parenthesis before submitting just
 																	// used to show the separate between terms
-																	// Leading '+' sign will be removed correctly with parenthesis are removed 
+																	// Leading '+' sign will be removed correctly when parenthesis are removed 
+																	
 		}
 		if (builder.charAt(0) == '+') { // Removes leading '+' sign if first term is positive
 			builder.deleteCharAt(0);
