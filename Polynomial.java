@@ -73,6 +73,8 @@ public class Polynomial {
 			}
 			poly.addLast(new Term(coefficient, exponent, variable));
 		}
+		this.sort();          // Sort and combine terms of input polynomial
+		this.combineTerms();
 	}
 
 	/**

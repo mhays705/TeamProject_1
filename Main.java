@@ -9,9 +9,6 @@ public class Main {
         System.out.println(polynomial.toString());
         
         
-        polynomial.sort();
-        polynomial.combineTerms();
-        System.out.println(polynomial.toString());
 
 	}
 
