@@ -6,12 +6,9 @@ public class Polynomial {
 	// Default constructor
 
 	public Polynomial() {
-		poly = null;
+		poly = new Linked_List<>();
 	}
 	
-	public Polynomial(Linked_List<Term> other) {
-		this.poly = other;
-	}
 
 	// Constructor that parses input into terms and creates linked list of terms
 	// from inputed polynomial
