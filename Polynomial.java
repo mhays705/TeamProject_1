@@ -79,6 +79,8 @@ public class Polynomial {
 					}
 				}
 			}
+			
+			
 			poly.addLast(new Term(coefficient, exponent, variable));
 		}
 		this.sort(); // Sort and combine terms of input polynomial
@@ -160,13 +162,16 @@ public class Polynomial {
 	        int coefficient = current.getCoefficient();
 	        String var = "";
 	    
-	        
 	        if (exponent > 0) {
-	        	var = current.getVar();
+	        	var = current.getVar();	        }
+	        
+	        if (var.equals("") && coefficient == 0 && exponent == 0) {     // Check if term only contains variable
+	        	newPoly.addLast(new Term(coefficient, exponent, current.getVar()));
 	        }
+	        
 
 	        
-	        while (it.hasNext()) {
+	        while (it.hasNext()) {   // Compare terms with the same exponent and combines them
 	            Term nextTerm = it.peek();
 	            if (current.compareTo(nextTerm) == 0) {
 	                coefficient += nextTerm.getCoefficient();
@@ -176,7 +181,7 @@ public class Polynomial {
 	                break; 
 	            }
 	        }
-
+	        
 	        
 	        newPoly.addLast(new Term(coefficient, exponent, var));
 	    }
@@ -187,7 +192,7 @@ public class Polynomial {
 	/**
 	 * Converts polynomial stored in linked list into a String for output
 	 * 
-	 * @return: polynomial converted to string
+	 * @return: polynomial to string
 	 */
 
 	@Override
