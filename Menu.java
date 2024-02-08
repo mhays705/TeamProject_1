@@ -73,8 +73,5 @@ public class Menu {
 		//FIXME: display result of addPolynomial, add option for a new set of polynomials and return to menu
 
 	}
-	public static void main(String[] args) {
-		Menu.Start();
-	}
 }
 
