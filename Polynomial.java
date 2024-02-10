@@ -104,13 +104,13 @@ public class Polynomial {
 		Linked_List<Term> newPoly = new Linked_List<>(this.poly);
 		List_Iterator<Term> it = other.poly.iterator();
 
-		while (it.hasNext()) {
+		while (it.hasNext()) {    // Combine polynomials 
 			newPoly.addLast(it.next());
 		}
 
 		Polynomial poly = new Polynomial(newPoly);
 
-		poly.sort();
+		poly.sort();      // Sort and combine new polynomial
 		poly.combineTerms();
 
 		return poly;
