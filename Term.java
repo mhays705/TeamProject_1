@@ -40,7 +40,7 @@ public class Term implements Comparable<Term> {
 			builder.append("-"); // Handle negative coefficient
 		}
 
-		if (coefficient != 0) {
+		if (coefficient > 1 || coefficient < -1) {    // Only adds coefficient if not equal to 1 or -1 
 			builder.append(Math.abs(coefficient));
 		}
 

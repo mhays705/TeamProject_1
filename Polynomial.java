@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Polynomial {
 
@@ -8,7 +9,7 @@ public class Polynomial {
 	public Polynomial() {
 		poly = new Linked_List<>();
 	}
-	
+
 	public Polynomial(Linked_List<Term> other) {
 		this.poly = other;
 	}
@@ -79,8 +80,13 @@ public class Polynomial {
 					}
 				}
 			}
-			
-			
+			if (coefficient == 0 && variable.contains("x") && sign == '+') { // Handles variables with no coefficient
+																				// and properly give them a coefficient
+																				// of 1
+				coefficient = 1;
+			} else if (coefficient == 0 && variable.contains("x") && sign == '-') {
+				coefficient = -1;
+			}
 			poly.addLast(new Term(coefficient, exponent, variable));
 		}
 		this.sort(); // Sort and combine terms of input polynomial
@@ -95,20 +101,18 @@ public class Polynomial {
 	 */
 
 	public Polynomial addPolynomial(Polynomial other) {
-		Linked_List<Term> newPoly = this.poly;
+		Linked_List<Term> newPoly = new Linked_List<>(this.poly);
 		List_Iterator<Term> it = other.poly.iterator();
-		
-		
+
 		while (it.hasNext()) {
 			newPoly.addLast(it.next());
 		}
-		
+
 		Polynomial poly = new Polynomial(newPoly);
-		
+
 		poly.sort();
 		poly.combineTerms();
-		
-		
+
 		return poly;
 	}
 
@@ -155,39 +159,40 @@ public class Polynomial {
 	public void combineTerms() {
 	    Linked_List<Term> newPoly = new Linked_List<>();
 	    List_Iterator<Term> it = poly.iterator();
-
-	    while (it.hasNext()) {
-	        Term current = it.next();
-	        int exponent = current.getExponent();
-	        int coefficient = current.getCoefficient();
-	        String var = "";
 	    
-	        if (exponent > 0) {
-	        	var = current.getVar();	        }
+	    while (it.hasNext()) {
+	        Term currentTerm = it.next();
+	        int coefficient = currentTerm.getCoefficient();
+	        int exponent = currentTerm.getExponent();
+	        String var = currentTerm.getVar();
 	        
-	        if (var.equals("") && coefficient == 0 && exponent == 0) {     // Check if term only contains variable
-	        	newPoly.addLast(new Term(coefficient, exponent, current.getVar()));
-	        }
 	        
-
-	        
-	        while (it.hasNext()) {   // Compare terms with the same exponent and combines them
-	            Term nextTerm = it.peek();
-	            if (current.compareTo(nextTerm) == 0) {
+	        List_Iterator<Term> it2 = poly.iterator();     // Search for like terms
+	        while (it2.hasNext()) {
+	            Term nextTerm = it2.next();
+	            if (nextTerm != currentTerm && nextTerm.getVar().equals(var) && nextTerm.getExponent() == exponent) {  // If similar term found add coefficients
 	                coefficient += nextTerm.getCoefficient();
-	                it.next(); 
-	                it.removePrevious(); 
-	            } else {
-	                break; 
+	                it2.removePrevious(); // Remove the nextTerm from the original list
+	            }
+	            else if (nextTerm != currentTerm && nextTerm.getVar().contains("x") && var.contains("x") && nextTerm.getExponent() == exponent ) { // Combine terms that are variables without exponents
+	            	coefficient += nextTerm.getCoefficient();
+	                it2.removePrevious();         // Remove the nextTerm from list
 	            }
 	        }
+	        it.removePrevious();   // Removes term previous term from list 
 	        
-	        
+	       if (coefficient == 0 ) {   // Check to not add terms with coefficient of 0
+	    	   continue;
+	       }
+	       else {
 	        newPoly.addLast(new Term(coefficient, exponent, var));
+	       }
 	    }
-
-	    this.poly = newPoly;
+	    
+	    poly = newPoly;
 	}
+
+
 
 	/**
 	 * Converts polynomial stored in linked list into a String for output
