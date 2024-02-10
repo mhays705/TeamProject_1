@@ -179,7 +179,7 @@ public class Polynomial {
 	                it2.removePrevious();         // Remove the nextTerm from list
 	            }
 	        }
-	        it.removePrevious();   // Removes term previous term from list 
+	        it.removePrevious();   // Remove previously checked term from list 
 	        
 	       if (coefficient == 0 ) {   // Check to not add terms with coefficient of 0
 	    	   continue;
