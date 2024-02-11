@@ -43,6 +43,10 @@ public class Term implements Comparable<Term> {
 		if (coefficient > 1 || coefficient < -1) {    // Only adds coefficient if not equal to 1 or -1 
 			builder.append(Math.abs(coefficient));
 		}
+			else if (coefficient == 1 || coefficient == -1 && !var.contains("x")) {
+				builder.append(Math.abs(coefficient));
+			}
+		
 
 		if (!var.isEmpty() && coefficient != 0) { // Removes sign from variable with coefficient
 			builder.append(var.substring(1));
