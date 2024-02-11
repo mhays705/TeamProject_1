@@ -205,12 +205,7 @@ public class Polynomial {
 		Iterator<Term> it = poly.iterator();
 		StringBuilder builder = new StringBuilder();
 		while (it.hasNext()) {
-			builder.append("(" + it.next().toString() + ")" + " "); // Remove additional space and parenthesis before
-																	// submitting just
-																	// used to show the separate between terms
-																	// Leading '+' sign will be removed correctly when
-																	// parenthesis are removed
-
+			builder.append(it.next().toString());
 		}
 		if (builder.charAt(0) == '+') { // Removes leading '+' sign if first term is positive
 			builder.deleteCharAt(0);
