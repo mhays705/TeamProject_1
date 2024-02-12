@@ -34,61 +34,70 @@ public class Polynomial {
 
 			char currentChar = it.next();
 
-			if (currentChar == '+' || currentChar == '-') {
-				sign = currentChar;
-			} else {
-				it.previous(); // Move iterator back if first character was an unsigned number or variable
-			}
-
-			if (it.hasNext() && Character.isDigit(it.peek())) { // Check for Coefficient
-				String temp = "";
-				temp += it.next();
-				if (it.hasNext() && Character.isDigit(it.peek())) { // Check if there is a second digit
-					temp += it.next();
-				}
-				if (sign == '-') {
-					coefficient = Integer.parseInt(temp) * -1;
+			if (Character.isDigit(currentChar) || Character.isAlphabetic(currentChar)) { // Stops an infinite loop when a space is entered
+																						// Because producing a bad output is better than that.
+				if (currentChar == '+' || currentChar == '-') {
+					sign = currentChar;
 				} else {
-					coefficient = Integer.parseInt(temp);
+					it.previous(); // Move iterator back if first character was an unsigned number or variable
 				}
-			}
 
-			if (it.hasNext() && Character.isAlphabetic(it.peek())) { // Check for variable
-				variable = sign + it.next().toString();
-			}
+				if (it.hasNext() && Character.isDigit(it.peek())) { // Check for Coefficient
+					String temp = "";
+					temp += it.next();
+					if (it.hasNext() && Character.isDigit(it.peek())) { // Check if there is a second digit
+						temp += it.next();
+					}
+					if (sign == '-') {
+						coefficient = Integer.parseInt(temp) * -1;
+					} else {
+						coefficient = Integer.parseInt(temp);
+					}
+				}
 
-			if (it.hasNext() && it.peek() == '^') { // Check for exponent
-				it.next();
-				String temp = "";
-				if (it.hasNext() && it.peek() == '-') { // Check for negative exponent and if it has second digit
+				if (it.hasNext() && Character.isAlphabetic(it.peek())) { // Check for variable
+					variable = sign + it.next().toString();
+				}
+
+				if (it.hasNext() && it.peek() == '^') { // Check for exponent
 					it.next();
-					temp = it.next().toString();
-					if (it.hasNext() && Character.isDigit(it.peek())) {
-						temp += it.next();
-					}
-					exponent = Integer.parseInt(temp) * -1;
-				} else if (it.hasNext()) { // Check for positive exponent and if it has second digit
-					temp = it.next().toString();
+					String temp = "";
+					if (it.hasNext() && it.peek() == '-') { // Check for negative exponent and if it has second digit
+						it.next();
+						temp = it.next().toString();
+						if (it.hasNext() && Character.isDigit(it.peek())) {
+							temp += it.next();
+						}
+						exponent = Integer.parseInt(temp) * -1;
+					} else if (it.hasNext()) { // Check for positive exponent and if it has second digit
+						temp = it.next().toString();
 
-					if (it.hasNext() && Character.isDigit(it.peek())) {
-						temp += it.next();
-					}
-					if (!temp.isEmpty()) {
-						exponent = Integer.parseInt(temp);
+						if (it.hasNext() && Character.isDigit(it.peek())) {
+							temp += it.next();
+						}
+						if (!temp.isEmpty()) {
+							exponent = Integer.parseInt(temp);
+						}
 					}
 				}
+				if (coefficient == 0 && variable.contains("x") && sign == '+') { // Handles variables with no
+																					// coefficient
+																					// and properly give them a
+																					// coefficient
+																					// of 1
+					coefficient = 1;
+				} else if (coefficient == 0 && variable.contains("x") && sign == '-') {
+					coefficient = -1;
+				}
+				poly.addLast(new Term(coefficient, exponent, variable));
+				this.sort(); // Sort and combine terms of input polynomial
+				this.combineTerms();
+			} else {
+				poly.addLast(new Term(0, 1, "x")); // If it is a space, treat it as if it doesn't exist
+				System.out.println("Invalid character detected! Integrity of results cannot be guaranteed!"); // Inform the user about their potential mistake
 			}
-			if (coefficient == 0 && variable.contains("x") && sign == '+') { // Handles variables with no coefficient
-																				// and properly give them a coefficient
-																				// of 1
-				coefficient = 1;
-			} else if (coefficient == 0 && variable.contains("x") && sign == '-') {
-				coefficient = -1;
-			}
-			poly.addLast(new Term(coefficient, exponent, variable));
-		}
-		this.sort(); // Sort and combine terms of input polynomial
-		this.combineTerms();
+			
+		} 
 	}
 
 	/**
