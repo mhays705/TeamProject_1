@@ -94,7 +94,7 @@ public class Polynomial {
 			}
 			else {
 				System.out.println("Invalid character detected!\n"
-						+ "Please reenter polynomial using correct format."); // Inform the user about their potential mistake
+						+ "Please reenter polynomial using correct format."); // Inform the user about their potential mistake and to reenter polynomial
 				break;
 			}
 				this.sort(); // Sort and combine terms of input polynomial
