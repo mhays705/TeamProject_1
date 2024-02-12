@@ -34,8 +34,7 @@ public class Polynomial {
 
 			char currentChar = it.next();
 
-			if (Character.isDigit(currentChar) || Character.isAlphabetic(currentChar)) { // Stops an infinite loop when a space is entered
-																						// Because producing a bad output is better than that.
+			
 				if (currentChar == '+' || currentChar == '-') {
 					sign = currentChar;
 				} else {
@@ -92,13 +91,10 @@ public class Polynomial {
 				poly.addLast(new Term(coefficient, exponent, variable));
 				this.sort(); // Sort and combine terms of input polynomial
 				this.combineTerms();
-			} else {
-				poly.addLast(new Term(0, 1, "x")); // If it is a space, treat it as if it doesn't exist
-				System.out.println("Invalid character detected! Integrity of results cannot be guaranteed!"); // Inform the user about their potential mistake
-			}
+			} 
 			
 		} 
-	}
+	
 
 	/**
 	 * Adds 2 polynomials and returns the result
