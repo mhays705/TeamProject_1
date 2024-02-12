@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Polynomial {
 
 	private Linked_List<Term> poly;

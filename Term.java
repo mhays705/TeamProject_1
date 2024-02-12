@@ -1,4 +1,3 @@
-
 public class Term implements Comparable<Term> {
 
 	private int coefficient; // Stores coefficient of term
@@ -43,7 +42,8 @@ public class Term implements Comparable<Term> {
 		if (coefficient > 1 || coefficient < -1) {    // Only adds coefficient if not equal to 1 or -1 
 			builder.append(Math.abs(coefficient));
 		}
-			else if (coefficient == 1 || coefficient == -1 && !var.contains("x")) {
+			else if (coefficient == 1 || coefficient == -1 && !var.contains("x")) { // No point to having a coefficient of +/-1 on a variable,
+																					// But we also need to make sure we don't delete +/-1 on its own. 
 				builder.append(Math.abs(coefficient));
 			}
 		

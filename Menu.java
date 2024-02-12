@@ -32,7 +32,7 @@ public class Menu {
                     break;
                 case "3":
                     if (poly1 != null && poly2 != null)
-                        System.out.println("Result of " + poly1 + " + " + poly2 + " = " + poly1.addPolynomial(poly2) + "\n");
+                        System.out.println("Result of (" + poly1 + ") + (" + poly2 + ") = " + poly1.addPolynomial(poly2) + "\n");
                     else
                         System.out.println("Please enter both polynomials first.");
                     break;
