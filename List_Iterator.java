@@ -34,7 +34,7 @@ public interface List_Iterator<T> extends Iterator<T> {
 	void setPrevious(T value);
 	
 	/**
-	 * Returns value of element without advancing the iterator
+	 * Returns value of next element without advancing the iterator
 	 * @return: Value from next element
 	 */
 	
