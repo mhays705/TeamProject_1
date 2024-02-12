@@ -35,6 +35,8 @@ public class Polynomial {
 			char currentChar = it.next();
 
 			
+			if (Character.isDigit(currentChar) || Character.isAlphabetic(currentChar) || currentChar == '-' || currentChar == '+') {   // Check for spaces
+			
 				if (currentChar == '+' || currentChar == '-') {
 					sign = currentChar;
 				} else {
@@ -89,6 +91,12 @@ public class Polynomial {
 					coefficient = -1;
 				}
 				poly.addLast(new Term(coefficient, exponent, variable));
+			}
+			else {
+				System.out.println("Invalid character detected!\n"
+						+ "Please reenter polynomial using correct format."); // Inform the user about their potential mistake
+				break;
+			}
 				this.sort(); // Sort and combine terms of input polynomial
 				this.combineTerms();
 			} 
